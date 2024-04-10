@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://boco4fh8f2ule"]
+
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_qges8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cyxee"]
+sky_top_color = Color(0.254902, 0.486275, 0.552941, 1)
+sky_horizon_color = Color(0.640196, 0.646078, 0.657843, 1)
+ground_bottom_color = Color(0.305882, 0.0980392, 0.0784314, 1)
+ground_horizon_color = Color(0.640196, 0.646078, 0.657843, 1)
+
+[sub_resource type="Sky" id="Sky_p6q4c"]
+sky_material = SubResource("ProceduralSkyMaterial_cyxee")
+
+[sub_resource type="Environment" id="Environment_il0xj"]
+background_mode = 2
+sky = SubResource("Sky_p6q4c")
+tonemap_mode = 2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_82u82"]
+radius = 1.43792
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qyfko"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00171798, 0.00089547, -0.0014959)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_il0xj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.663927, 0.745492, -0.0586715, 0, 0.0784591, 0.996917, 0.747798, 0.66188, -0.0520911, 0, 0, 0)
+light_color = Color(0.196078, 0.815686, 0.498039, 1)
+light_energy = 2.25
+shadow_enabled = true
+
+[node name="level" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="level"]
+transform = Transform3D(-0.00966538, 0.999953, -0.00026272, 0.99995, 0.00966605, 0.00273896, 0.00274138, -0.000236234, -0.999996, 0.262223, 0.60885, -26.7673)
+use_collision = true
+size = Vector3(1, 10.5508, 63.0425)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.87101, 0)
+script = ExtResource("1_qges8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26516, 0.259133)
+shape = SubResource("SphereShape3D_82u82")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(0.993762, 0, 0.111521, 0, 1, 0, -0.111521, 0, 0.993762, 0.0517359, 1.49688, 1.38439)
+fov = 112.5
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CharacterBody3D"]
+transform = Transform3D(0.0666222, 0, 0.997778, 0, 1, 0, -0.997778, 0, 0.0666222, 0.113142, 1.28646, 2.25455)
+mesh = SubResource("CapsuleMesh_qyfko")
